@@ -1,0 +1,31 @@
+!!! 5
+%html
+%head
+	%title Recipes
+	= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+	= javascript_include_tag 'application', 'data-turbolinks-track' => true
+	= csrf_meta_tags
+%body
+
+	%nav.navbar.navbar-default
+		.container-fluid
+			.navbar-header
+				.navbar-brand
+					= link_to "Recipes", root_url
+			%ul.nav.navbar-nav.navbar-right
+
+				- if user_signed_in?
+					%li= link_to "Sign Out", destroy_user_session_path, method: :delete
+					%li= link_to "New Recipe", new_recipe_path
+				- else
+					%li= link_to "Sign In", new_user_session_path
+					%li= link_to "Sign Up", new_user_registration_path
+	.container	
+
+		- flash.each do |k,v|
+			.alert{:class => "alert-#{k}"}= v 
+		- flash.each do |k,v|
+			.notice 
+
+		= yield
+

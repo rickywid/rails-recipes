@@ -1,0 +1,11 @@
+- if Recipe.count == 0
+	%p There are currently no recipes
+
+- @recipe.each do |recipe|
+	.col-md-3
+		.panel.panel-default
+			.panel-body.index
+				= link_to recipe_path(recipe) do
+					= image_tag recipe.image.url(:medium)
+			.panel-footer
+				%h4.title= link_to recipe.name, recipe_path(recipe)

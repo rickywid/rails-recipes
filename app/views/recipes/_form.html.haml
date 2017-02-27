@@ -1,0 +1,31 @@
+.row
+	.col-md-6.col-md-offset-3
+		.panel.panel-success
+			.panel-heading
+				Add New Recipe
+			.panel-body
+				= simple_form_for @recipe, html: {multipart: true} do |f|
+					= f.input :name, input_html: {class: "form-control"}
+					= f.input :description, input_html: {class: "form-control"}
+					= f.input :image, as: :file, input_html: {class: "form-control"}
+
+
+
+					%h3 Ingredients
+					#ingredients
+						= f.simple_fields_for :ingredients do |ingredient|
+							= render 'ingredient_fields', f: ingredient
+						.links
+							= link_to_add_association 'add ingredient', f, :ingredients, class: "btn btn-default"
+
+					%h3 Directions
+					#directions
+						= f.simple_fields_for :directions do |direction|
+							= render 'direction_fields', f: directions
+						.links
+							= link_to_add_association 'add direction', f, :directions, class: "btn btn-default"
+					%br/
+					
+					= f.submit "Submit", input_html: {class: "btn btn-default"}
+
+= link_to "Back", root_url, class: "btn btn-default"
